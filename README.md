@@ -1,28 +1,17 @@
-## title {.tabset .tabset-fade}
-content above tabbed region.
+## Research
 
-### tab Social-Media
+| Title | Grade | Requirements |
+| :------------- | :---: | :----------- |
+| Research Assistant | 6 |  |
+| Research Associate | 7 |  |
+| Research Fellow | 8 | |
+| Post-doctoral Fellow | |
 
-tab content Social-Media
+- [Clinical Research Associate](./cra.md)
+- [Clinical Research Scientist](./crs.md)
+- [](./.md)
+- [](./.md)
 
-### tab Contact
-
-tab content  Contact
-
-### tab Revisions
-
-tab content  Revisions
-
-### tab Articles
-
-tab content  Articles
-
-### tab Skills
-
-tab content  Skills
-
-### tab Insights
-
-tab content  Insights
-
-content below tabbed region
+<!--
+- [](./.md)
+-->

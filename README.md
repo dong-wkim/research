@@ -7,8 +7,8 @@
 | Research Fellow | 8 | |
 | Post-doctoral Fellow | 9 |
 
-- [Clinical Research Associate](./cra.md)
-- [Post-doctoral Fellow](./pdf.md)
+- [Clinical Research Associate](./CRA.md)
+- [Post-doctoral Fellow](./POST-DOC.md)
 
 <!--
 - [](./.md)

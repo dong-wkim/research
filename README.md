@@ -8,9 +8,7 @@
 | Post-doctoral Fellow | 9 |
 
 - [Clinical Research Associate](./cra.md)
-- [Clinical Research Scientist](./crs.md)
-- [](./.md)
-- [](./.md)
+- [Post-doctoral Fellow](./pdf.md)
 
 <!--
 - [](./.md)

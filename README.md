@@ -2,6 +2,14 @@
 
 **2025-11-14**: 
 
+- [x] application submitted to PMG (full-time 20,000-28,000zl/month)
+- [x] application submitted to MDPI (part-time 16,000zl/month)
+
+**2025-11-15**:
+
+- [ ] need to prepare application template for postdoctoral fellowship 
+
+
 
 
 | Title | Grade | Requirements | Hourly | Monthly | Annually |

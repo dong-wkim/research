@@ -1,11 +1,16 @@
-## Research
+## Research Jobs
 
-| Title | Grade | Requirements |
-| :------------- | :---: | :----------- |
+**2025-11-14**: 
+
+
+
+| Title | Grade | Requirements | Hourly | Monthly | Annually |
+| :------------- | :---: | :----------- | :--: | :--: | :--: |
 | Research Assistant | 6 |  |
-| Research Associate | 7 |  |
+| Research Associate | 7 |  | 
 | Research Fellow | 8 | |
 | Post-doctoral Fellow | 9 |
+| Medical Writer | | |
 
 - [Clinical Research Associate](#clinical-research-associate)
 - [Post-doctoral Fellow](#post-doctoral-fellow)

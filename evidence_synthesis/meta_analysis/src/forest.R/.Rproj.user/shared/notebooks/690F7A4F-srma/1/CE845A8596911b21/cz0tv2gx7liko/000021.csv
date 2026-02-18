@@ -1,0 +1,5 @@
+"0","lapply(dichotomous, forest.prop)
+"
+"2","Error in rma.glmm(xi = xi, ni = ni, measure = ""PLO"", data = data, slab = study,  : 
+  Cannot fit ML model (set 'verbose=TRUE' to obtain further details).
+"

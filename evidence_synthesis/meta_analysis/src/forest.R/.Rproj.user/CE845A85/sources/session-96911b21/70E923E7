@@ -1,0 +1,28 @@
+{
+    "id": "70E923E7",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1769336058605.0,
+    "source_on_save": false,
+    "relative_order": 8,
+    "properties": {
+        "id": "f2ad6e0b9cb54e74871d0ae90242d6dc",
+        "name": "res.glmm",
+        "title": "res.glmm",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 4607182418800017408,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1769336058605,
+    "read_only": false,
+    "read_only_alternatives": []
+}

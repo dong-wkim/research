@@ -1,0 +1,80 @@
+---
+title: "Untitled"
+author: "dongwkim"
+date: "`r Sys.Date()`"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+install.packages("igraph")
+install.packages("netmeta")
+install.packages("networkD3")
+install.packages("htmlwidgets")
+```
+
+```{r Network Graph}
+library(igraph)
+library(netmeta)
+library(networkD3)
+library(htmlwidgets)
+
+A <- "Bone-patellar tendon-bone"
+B <- "Hamstring"
+C <- "Quadriceps"
+D <- "Peroneus longus"
+E <- "Achilles"
+F <- "Tibialis anterior"
+
+grafts <- c(A, B, C, D, E, F)
+nodes <- data.frame(name = grafts)
+edges <- data.frame(source = c(0, 1, 2),
+                    target = c(1, 2, 3),
+                    value = c(10, 20, 30))
+df <- data.frame(
+  from = c(A,A,A,A,A,B,B,B,B,C,C,C,D,D,E),
+  to =   c(B,C,D,E,F,C,D,E,F,D,E,F,E,F,F))
+
+?simpleNetwork()
+
+p <- simpleNetwork(df, height="3000px", width="3000px",        
+        Source = 1,                 # column number of source
+        Target = 2,                 # column number of target
+        linkDistance = 300,          # distance between node. Increase this value to have more space between nodes
+        charge = -1500,                # numeric value indicating either the strength of the node repulsion (negative value) or attraction (positive value)
+        fontSize = 18,               # size of the node names
+        fontFamily = "Serif",       # font og node names
+        linkColour = "#666",        # colour of edges, MUST be a common colour for the whole graph
+        nodeColour = "#111",     # colour of nodes, MUST be a common colour for the whole graph
+        opacity = 0.9,              # opacity of nodes. 0=transparent. 1=no transparency
+        zoom = T                    # Can you zoom on the figure?
+        )
+getwd()
+library(htmlwidgets)
+saveWidget(p, file=paste0("./ACLR_graft_sources.html"))
+
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

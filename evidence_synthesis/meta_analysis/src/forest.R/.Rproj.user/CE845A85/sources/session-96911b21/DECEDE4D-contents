@@ -1,0 +1,61 @@
+---
+title: "srma"
+author: "dongwkim"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+packages <- c(
+  "googledrive",
+  "googlesheets4",
+  "readxl",
+  "Matrix",
+  "metafor",
+  "dplyr",
+  "meta",
+  "ggplot2",
+  "ggpubr",
+  "ggforestplot",
+  "ggplotify",
+  "ggplot2",
+  "tidyverse",
+  "svglite"
+)
+
+# Only install packages as needed
+for (package in packages) {
+  if (!requireNamespace(package, quietly = TRUE))
+    install.packages(package, dependencies = TRUE)
+}
+
+lapply(packages, library, character.only = TRUE)
+```
+
+```{r set directory paths}
+getwd()
+setwd(".") # Set the working directory to the parent directory of this script file, which should be placed in ./src/.
+
+dir_src = "./src/"
+dir_data = "./data/"
+dir_plots = "./plots/"
+
+```
+
+<!-- Comment:
+
+Store the scripts in local and two cloud storage sites since Posit does not reliably store the files. 
+
+-->
+
+## Custom R packages using GitHub workflows for forest plot and meta-analysis scripts. 
+
+```{r Custom function 1}
+
+
+
+```
+
+

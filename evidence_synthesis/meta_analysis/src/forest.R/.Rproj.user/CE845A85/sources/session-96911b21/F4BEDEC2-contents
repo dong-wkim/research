@@ -1,0 +1,22 @@
+packages <- c(
+  "googledrive",
+  "googlesheets4",
+  "readxl",
+  "metafor",
+  "dplyr",
+  "meta",
+  "ggplot2",
+  "ggpubr",
+  "ggforestplot",
+  "ggplotify",
+  "ggplot2",
+  "tidyverse",
+  "devtools"
+)
+
+# install.packages(packages, dependencies = TRUE)
+devtools::install_github("NightingaleHealth/ggforestplot")
+
+lapply(packages, library, character.only = TRUE)
+
+setwd("./") 

@@ -1,0 +1,28 @@
+{
+    "id": "24957808",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1769336058506.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "id": "fe5bdbf5695c4d88ad974116ab07143f",
+        "name": "m.prop",
+        "title": "m.prop",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 100522747700712,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1769336058506,
+    "read_only": false,
+    "read_only_alternatives": []
+}

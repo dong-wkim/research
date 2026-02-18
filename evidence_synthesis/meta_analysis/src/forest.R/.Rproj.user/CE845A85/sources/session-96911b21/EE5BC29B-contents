@@ -1,0 +1,129 @@
+forest.mean <- function(x) {
+  xlsx_path <- paste0("data/xlsx/continuous/",x,".xlsx")
+  csv_path <- paste0("data/csv/continuous/",x,".csv")
+  svg_path <- paste0("plots/forest/continuous/",x,".svg")
+  
+  data <- read_excel(xlsx_path) %>%
+    rename(ni = paste0(x, "_n"), mi = paste0(x, "_mean"), sdi = paste0(x, "_sd")) %>% 
+    select(study, graft_type, ni, mi, sdi)
+  data <- escalc(measure = "MN", ni = ni, mi = mi, sdi = sdi, data = data, slab = study)
+  res <- rma(yi, vi, data = data, slab = study)
+  data <- summary(data)
+  
+  write.csv(data, file = csv_path, row.names = FALSE)
+  
+  alim <- c(min(data$ci.lb), max(data$ci.ub))
+  alim[1] <- ifelse(alim[1] > 10, floor(alim[1]/5)*5, floor(alim[1]/0.5)*0.5)
+  alim[2] <- ifelse(alim[2] > 20, ceiling(alim[2]/5)*5, ceiling(alim[2]/0.5)*0.5)
+  
+  xlim <- c(alim[1]-1.65*diff(alim),alim[1]+1.65*diff(alim))
+  
+  ilab <- function(arg) {
+    (3.3*diff(alim)*arg) + xlim[1]
+  }
+  ilab.xpos <- ilab(c(0.33,0.39,0.45))
+  height = (res$k + 13)/4
+  ks <- sum(data$graft_type == "S-QT")
+  kb <- sum(data$graft_type == "B-QT")
+  k <- ks + kb
+  scale_efac <- function(k) {
+    if (k < 7) {
+      return(c(1.0, 0.8, 0.6))
+    } else if (k <= 20) {
+      return(c(0.8, 0.6, 0.4))
+    } else if (k > 21) {
+      return(c(0.3, 0.3, 0.2))
+    } else {
+      return(c(0.3, 0.3, 0.2))
+    }}
+  efac_value <- scale_efac(k)
+  
+  
+  m.mean <- metamean(ni, mi, sdi, study, data, sm = "MRAW", subgroup = graft_type,
+                     fixed = FALSE, random = TRUE, method.tau = "REML", tau.common = ifelse(k<10,TRUE,FALSE), 
+                     hakn = TRUE, method.random.ci = "HK")
+  
+  range <- (alim[2] - alim[1]) * 1.65
+  
+  ks <- sum(data$graft_type == "S-QT")
+  kb <- sum(data$graft_type == "B-QT")
+  k <- ks + kb
+  ylim <- c(-3,k+9)
+  
+  m.mean <- metamean(n = ni, mean = mi, sd = sdi, studlab = study, data = data,
+                     sm = "MRAW", fixed = FALSE, random = TRUE, tau.common = FALSE,
+                     method.tau = "REML", method.random.ci = "HK", subgroup = graft_type)
+  summary(m.mean)
+  
+  res.sqt <- rma(yi, vi, data = data, subset = graft_type == "S-QT")
+  res.bqt <- rma(yi, vi, data = data, subset = graft_type == "B-QT")
+  reg <- rma(yi, vi, data = data, mods = ~ graft_type)
+  # res.mv <- rma.mv(yi, vi, data = data, slab = study, mods = ~ graft_type, method = "REML")
+  # pred.mv <- predict(res.mv, digits =2)
+  # data$graft_type <- relevel(factor(data$graft_type), ref = "S-QT")
+  
+  # Generate and save forest plot
+  
+  height = (res$k + 13)/4
+  svg(file = svg_path, width = 9, height = height)
+  op <- par(xpd=TRUE)
+  
+  mlabfun <- function(text, x) {
+    list(bquote(paste(.(text), 
+                      italic("\u03c4"^2), " = ", .(fmtx(x$tau2, digits=2)) , ", ",
+                      italic(I)^2, " = ", .(fmtx(x$I2, digits=1)), "%, ", 
+                      italic(p),.(fmtp(x$QEp, digits=3, add0=TRUE, sep=TRUE, equal=TRUE))
+    )))
+  }
+  
+  with(
+    res,
+    forest(
+      res,
+      cex = 0.85,
+      top = 2,
+      alim = alim, 
+      xlim = xlim,
+      ylim = c(-3,k+9),
+      ilab = cbind(
+        ni,
+        formatC(mi, format = "f", digits = 2),
+        formatC(sdi, format = "f", digits = 2)
+      ),
+      ilab.xpos = ilab.xpos,
+      ilab.pos = 2,
+      rows = c(3:(kb + 2), (kb + 7):(k + 6)),
+      refline = coef(res),
+      mlab = mlabfun("RE Model for All Studies: ", res),
+      plim = c(0.8, 1.2, 0.85),
+      fonts = "Calibri Light",
+      header = "Author(s) and Year",
+      efac = efac_value,
+      shade = "zebra",
+      xlab = "",
+      addpred=TRUE
+    )
+  )
+  
+  # Add additional column header labels
+  text(ilab.xpos, k+9, c("N", "Mean", "SD"), pos=2, cex =0.85, font=2)
+  
+  # Add subgroup title labels
+  text(xlim[1], c(k + 7.1, kb + 3.1), pos=4, c("S-QT","B-QT"), cex = 0.85, font =2)
+  
+  addpoly(res.sqt, 
+          row=kb+5.5, 
+          mlab=mlabfun("RE Model for Subgroup: ", res.sqt), cex=0.85, addpred=TRUE, efac=efac_value)
+  
+  addpoly(res.bqt, 
+          row= 1.5, 
+          mlab=mlabfun("RE Model for Subgroup: ", res.bqt), cex=0.85, addpred=TRUE, efac=efac_value)
+  
+  text(xlim[1], -2.2, pos=4, cex=0.85, bquote(paste("Test for Subgroup Differences: ",
+                                                    italic(Q)[M], " = ", .(fmtx(reg$QM, digits=2)),
+                                                    ", df = ", .(reg$p - 1), ", ",
+                                                    italic(p),.(fmtp(reg$QMp, digits=3, add0=TRUE, sep=TRUE, equal=TRUE)))))
+  
+  par(op)
+  dev.off()
+}
